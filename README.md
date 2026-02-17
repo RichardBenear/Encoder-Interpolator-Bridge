@@ -156,4 +156,7 @@ These are the main constants you might tune:
   - **Green** = VIRT18
 
 ---
+## Block Diagram
+
+![Block Diagram](Encoder-Interpolator-Bridge.drawio.png)
 
