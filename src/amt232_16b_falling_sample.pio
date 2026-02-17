@@ -1,0 +1,30 @@
+.program amt232_16b_falling_sample
+; Clocks 16 bits from MISO and pushes one 16-bit word to RX FIFO.
+; - SCLK driven via 1-bit sideset.
+; - Data is assumed to change on SCLK rising edge.
+; - We sample on the falling edge (sample occurs during the instruction that drives SCLK low).
+;
+; Pin mapping (set in C):
+;   - sideset pin: SCLK (output)
+;   - in pin base: MISO (input)
+; CS is handled outside PIO (normal GPIO).
+
+.side_set 1
+
+; Optional: start with SCLK low
+.wrap_target
+    pull    block           side 0      ; wait for trigger word (any value)
+    set     x, 15           side 0      ; 16 bits total: x = 15..0
+
+bitloop:
+    ; Rising edge: encoder updates MISO on/after this edge
+    nop                     side 1  [0] ; keep this high phase short or add delay
+
+    ; Falling edge + sample:
+    ; sideset drives SCLK low at start of the instruction cycle,
+    ; 'in pins,1' samples late in the cycle => "sample on falling edge"
+    in      pins, 1         side 0  [0]
+
+    jmp     x--, bitloop    side 0      ; loop until 16 bits captured
+    push    block           side 0      ; push 16-bit word to RX FIFO
+.wrap
