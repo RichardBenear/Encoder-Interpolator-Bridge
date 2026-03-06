@@ -31,7 +31,7 @@
 // AMT232 encoder pins
 #define ENC_CS_PIN        3
 #define ENC_SCK_PIN       0
-#define ENC_MISO_PIN      2
+#define ENC_MISO_PIN      1
 
 // ODrive SPI (RP2040 is SPI SLAVE) pins
 #define ODRIVE_SPI           spi0
