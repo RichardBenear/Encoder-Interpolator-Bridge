@@ -444,9 +444,8 @@ static void oled_update() {
 // Setup / loop (core0)
 // ---------------------------
 void setup() {
-    pinMode(BYPASS_PIN, INPUT_PULLUP);
     delay(1);
-    g_is_bypassed = (digitalRead(BYPASS_PIN) == LOW);
+    pinMode(BYPASS_PIN, INPUT_PULLUP);
     gpio_set_function(ODRIVE_SCK_PIN, GPIO_FUNC_SPI);
     gpio_set_function(ODRIVE_CS_PIN,  GPIO_FUNC_SPI);
     gpio_set_function(ODRIVE_MISO_PIN, GPIO_FUNC_SPI);
@@ -455,6 +454,9 @@ void setup() {
     gpio_init(ODRIVE_MOSI_NC_PIN);
     gpio_set_dir(ODRIVE_MOSI_NC_PIN, GPIO_IN);
     gpio_pull_down(ODRIVE_MOSI_NC_PIN);
+
+    delay(1);
+    g_is_bypassed = (digitalRead(BYPASS_PIN) == LOW);
 
     // SPI0 slave init
     spi_init(ODRIVE_SPI, 1'000'000);

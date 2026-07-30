@@ -87,7 +87,7 @@ An optional **SSD1306 OLED** shows live values and parity/checkbit statistics. A
 #### AMT232 (PIO SPI master)
 - `ENC_CS_PIN   = 3`
 - `ENC_SCK_PIN  = 0`
-- `ENC_MISO_PIN = 2`
+- `ENC_MISO_PIN = 1`
 
 #### ODrive SPI (RP2040 SPI0 slave)
 - `ODRIVE_CS_PIN   = 5`
@@ -158,5 +158,5 @@ These are the main constants you might tune:
 ---
 ## Block Diagram
 
-![Block Diagram](Encoder-Interpolator-Bridge.drawio.png)
+![Block Diagram](EncoderInterpolatorBridge.png)
 
